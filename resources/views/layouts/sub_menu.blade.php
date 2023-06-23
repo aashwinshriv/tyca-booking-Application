@@ -82,13 +82,13 @@
            href="{{ route('doctors.index') }}">{{ __('messages.doctors') }}</a>
     </li>
 @endcan
-@can('manage_doctor_sessions')
-    <li class="nav-item position-relative mx-xl-3 mb-3 mb-xl-0
-    {{ !Request::is('admin/doctors*', 'admin/doctor-sessions*') ? 'd-none' : '' }}">
-        <a class="nav-link p-0 {{ Request::is('admin/doctor-sessions*') ? 'active' : '' }}"
-           href="{{ route('doctor-sessions.index') }}">{{ (getLogInUser()->hasRole('doctor')) ? __('messages.doctor_session.my_schedule') : __('messages.doctor_sessions') }}</a>
-    </li>
-@endcan
+<!--@can('manage_doctor_sessions')-->
+<!--    <li class="nav-item position-relative mx-xl-3 mb-3 mb-xl-0-->
+<!--    {{ !Request::is('admin/doctors*', 'admin/doctor-sessions*') ? 'd-none' : '' }}">-->
+<!--        <a class="nav-link p-0 {{ Request::is('admin/doctor-sessions*') ? 'active' : '' }}"-->
+<!--           href="{{ route('doctor-sessions.index') }}">{{ (getLogInUser()->hasRole('doctor')) ? __('messages.doctor_session.my_schedule') : __('messages.doctor_sessions') }}</a>-->
+<!--    </li>-->
+<!--@endcan-->
 @can('manage_patients')
     <li class="nav-item position-relative mx-xl-3 mb-3 mb-xl-0
     {{ !Request::is('admin/patients*') ? 'd-none' : '' }}">

@@ -11,19 +11,26 @@
 header{
     display: none;
 }
+.mb-4 {
+    margin-bottom: 0.6rem!important;
+}
+.form-control, .form-select{
+    height: 40px;
+    padding: 0px 15px;
+}
 </style>
 
 <div>
 
-    <div class="flex-column flex-column-fluid align-items-center justify-content-center" class="col-12">
+    <div class="flex-column flex-column-fluid align-items-center justify-content-center">
 
-        <div class="width-540" style="height: 50%;margin: auto;">
+        <div class="width-540">
             @include('flash::message')
             @include('layouts.errors')
         </div>
         <div class="row col-12">
             <div class="col-7">
-                <img src="assets/image/sing-up.png" class="css-class" alt="alt text">
+                <img src="assets/image/sing-up.png" class="css-class" alt="alt text"  style="width: 100%;">
             </div>
 
             <div class="bg-white rounded-15 shadow-md width-540 px-5 px-sm-7 mx-auto col-4" style="height: 50%;margin: auto;">
@@ -54,7 +61,7 @@ header{
                     </div>
                     <div class="d-flex justify-content-between" style="padding-bottom: 10px;">
                         @if (Route::has('password.request'))
-                        <a href="{{ route('password.request') }}" class="link-info fs-6 text-decoration-none">
+                        <a href="{{ route('password.request') }}" class="form-check-label" style="color: #000000b3;">
                             {{ __('messages.common.forgot_your_password').'?' }}
                         </a>
                         @endif

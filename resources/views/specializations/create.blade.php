@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('title')
-{{__('messages.service.add_service')}}
+{{__('messages.specialization.add_specialization')}}
 @endsection
 @section('content')
 <div class="container-fluid">
@@ -15,7 +15,7 @@
     </div>
     <div class="card">
         <div class="card-body">
-            {{ Form::open(['route' => 'services.store', 'files' => true]) }}
+            {{ Form::open(['route' => 'specializations.store', 'files' => true]) }}
             <div class="row">
                 <div class="col-lg-12">
                     <div class="mb-5">
@@ -43,7 +43,7 @@
                 </div>
                 <div>
                     {{ Form::submit(__('messages.common.save'),['class' => 'btn btn-primary me-2']) }}
-                    <a href="{{route('services.index')}}" type="reset"
+                    <a href="{{route('specializations.index')}}" type="reset"
                        class="btn btn-secondary">{{__('messages.common.discard')}}</a>
                 </div>
             </div>
@@ -52,5 +52,4 @@
         </div>
     </div>
 </div>
-@include('services.create-modal')
 @endsection

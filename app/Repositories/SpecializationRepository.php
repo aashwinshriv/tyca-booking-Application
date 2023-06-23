@@ -3,6 +3,9 @@
 namespace App\Repositories;
 
 use App\Models\Specialization;
+use DB;
+use Exception;
+use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
 
 /**
  * Class SpecializationRepository
@@ -34,5 +37,26 @@ class SpecializationRepository extends BaseRepository
     public function model()
     {
         return Specialization::class;
+    }
+
+    /**
+     * @param  array  $input
+     * @return bool
+     */
+    public function store(array $input): bool
+    {
+        try {
+            DB::beginTransaction();
+            $input['status'] = (isset($input['status'])) ? 1 : 0;
+            $specialization = Specialization::create($input);
+            if (isset($input['icon']) && ! empty('icon')) {
+                $specialization->addMedia($input['icon'])->toMediaCollection(Specialization::ICON, config('app.media_disc'));
+            }
+            DB::commit();
+            return true;
+        } catch (Exception $e) {
+            DB::rollBack();
+            throw new UnprocessableEntityHttpException($e->getMessage());
+        }
     }
 }

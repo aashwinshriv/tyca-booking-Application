@@ -41,6 +41,7 @@ class SpecializationTable extends LivewireTableComponent
     public function columns(): array
     {
         return [
+            Column::make(__('messages.front_service.icon'), 'id')->view('services.components.icon'),
             Column::make(__('messages.common.name'), 'name')->view('specializations.components.name')
                     ->sortable()
                     ->searchable(),
@@ -55,7 +56,7 @@ class SpecializationTable extends LivewireTableComponent
     public function builder(): Builder
     {
         //return Specialization::query();
-        $query = Specialization::with([])->select('specializations.*');
+        $query = Specialization::with(['media'])->select('specializations.*');
 
         $query->when($this->statusFilter !== '' && $this->statusFilter != Specialization::ALL,
             function (Builder $query) {

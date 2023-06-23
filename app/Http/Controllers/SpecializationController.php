@@ -10,6 +10,9 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Routing\Redirector;
+use Laracasts\Flash\Flash;
 
 class SpecializationController extends AppBaseController
 {
@@ -46,15 +49,18 @@ class SpecializationController extends AppBaseController
      * Store a newly created Specialization in storage.
      *
      * @param  CreateSpecializationRequest  $request
-     * @return JsonResponse
+     * @return Application|RedirectResponse|Redirector
      */
-    public function store(CreateSpecializationRequest $request): JsonResponse
+    public function store(CreateSpecializationRequest $request)
     {
         $input = $request->all();
 
-        $this->specializationRepository->create($input);
+        $this->specializationRepository->store($input);
 
-        return $this->sendSuccess(__('messages.flash.specialization_create'));
+        //return $this->sendSuccess(__('messages.flash.specialization_create'));
+        Flash::success(__('messages.flash.specialization_create'));
+
+        return redirect(route('specializations.index'));
     }
 
     /**

@@ -8,6 +8,7 @@ use App\Http\Controllers\ClinicScheduleController;
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\CurrencyController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\BookController;
 use App\Http\Controllers\DoctorSessionController;
 use App\Http\Controllers\Front\CMSController;
 use App\Http\Controllers\Front\EnquiryController;
@@ -155,6 +156,8 @@ Route::middleware('auth', 'xss', 'checkUserStatus')->group(function () {
     Route::put('/change-user-password', [UserController::class, 'changePassword'])->name('user.changePassword');
     Route::put('/email-notification', [UserController::class, 'emailNotification'])->name('emailNotification');
 });
+
+Route::get('/book-slot', [BookController::class, 'index'])->name('book-slot');
 
 Route::get('cancel-appointment/{patient_id}/{appointment_unique_id}', [AppointmentController::class, 'cancelAppointment'])->name('cancelAppointment');
 

@@ -5983,10 +5983,9 @@ priceFormatSelector('.price-input');
   \*****************************************************************/
 /***/ (() => {
 
-document.addEventListener('turbo:load', loadPhoneNumberCountryCodeData);
-
+//document.addEventListener('turbo:load', loadPhoneNumberCountryCodeData);
 function loadPhoneNumberCountryCodeData() {
-  loadPhoneNumberCountryCode();
+  //loadPhoneNumberCountryCode()
   userCreateForm();
   userEditForm();
   vcardEditForm();
@@ -6002,18 +6001,20 @@ function loadPhoneNumberCountryCode() {
       errorMsg = document.querySelector('#error-msg'),
       validMsg = document.querySelector('#valid-msg');
   var errorMap = [Lang.get('messages.invalid_number'), Lang.get('messages.invalid_country_number'), Lang.get('messages.too_short'), Lang.get('messages.too_long'), Lang.get('messages.invalid_number')]; // initialise plugin
-
-  var intl = window.intlTelInput(input, {
-    initialCountry: defaultCountryCodeValue,
-    separateDialCode: true,
-    geoIpLookup: function geoIpLookup(success, failure) {
-      $.get('https://ipinfo.io', function () {}, 'jsonp').always(function (resp) {
-        var countryCode = resp && resp.country ? resp.country : '';
-        success(countryCode);
-      });
-    },
-    utilsScript: '../../public/assets/js/inttel/js/utils.min.js'
-  });
+  // let intl = window.intlTelInput(input, {
+  //     initialCountry: defaultCountryCodeValue,
+  //     separateDialCode: true,
+  //     geoIpLookup: function (success, failure) {
+  //         $.get('https://ipinfo.io', function () {
+  //         }, 'jsonp').always(function (resp) {
+  //             var countryCode = (resp && resp.country)
+  //                 ? resp.country
+  //                 : ''
+  //             success(countryCode)
+  //         })
+  //     },
+  //     utilsScript: '../../public/assets/js/inttel/js/utils.min.js',
+  // })
 
   var reset = function reset() {
     input.classList.remove('error');
@@ -6062,15 +6063,14 @@ function loadPhoneNumberCountryCode() {
   $('#phoneNumber').val(removeSpacePhoneNumber);
   $('#phoneNumber').focus();
   $('#phoneNumber').trigger('blur');
-}
+} // $(document).on('click', '.iti__country', function (){
+//     let flagClass = $('.iti__selected-flag>.iti__flag').attr('class')
+//     flagClass = flagClass.split(/\s+/)[1]
+//     let dialCodeVal = $('.iti__selected-dial-code').text()
+//     window.localStorage.setItem('flagClassLocal', flagClass)
+//     window.localStorage.setItem('dialCodeValLocal', dialCodeVal)
+// })
 
-$(document).on('click', '.iti__country', function () {
-  var flagClass = $('.iti__selected-flag>.iti__flag').attr('class');
-  flagClass = flagClass.split(/\s+/)[1];
-  var dialCodeVal = $('.iti__selected-dial-code').text();
-  window.localStorage.setItem('flagClassLocal', flagClass);
-  window.localStorage.setItem('dialCodeValLocal', dialCodeVal);
-});
 
 function userCreateForm() {
   if (!$('#userCreateForm').length) {
@@ -9800,21 +9800,24 @@ function loadSettingData() {
 
   form = document.getElementById('generalSettingForm');
   phone = document.getElementById('phoneNumber').value;
-  prefixCode = document.getElementById('prefix_code').value;
-  var input = document.querySelector('#defaultCountryData');
-  var intl = window.intlTelInput(input, {
-    initialCountry: defaultCountryCodeValue,
-    separateDialCode: true,
-    geoIpLookup: function geoIpLookup(success, failure) {
-      $.get('https://ipinfo.io', function () {}, 'jsonp').always(function (resp) {
-        var countryCode = resp && resp.country ? resp.country : '';
-        success(countryCode);
-      });
-    },
-    utilsScript: '../../public/assets/js/inttel/js/utils.min.js'
-  });
-  var getCode = intl.selectedCountryData['name'] + ' +' + intl.selectedCountryData['dialCode'];
-  $('#defaultCountryData').val(getCode);
+  prefixCode = document.getElementById('prefix_code').value; // let input = document.querySelector('#defaultCountryData')
+  // let intl = window.intlTelInput(input, {
+  //     initialCountry: defaultCountryCodeValue,
+  //     separateDialCode: true,
+  //     geoIpLookup: function (success, failure) {
+  //         $.get('https://ipinfo.io', function () {
+  //         }, 'jsonp').always(function (resp) {
+  //             var countryCode = (resp && resp.country)
+  //                 ? resp.country
+  //                 : ''
+  //             success(countryCode)
+  //         })
+  //     },
+  //     utilsScript: '../../public/assets/js/inttel/js/utils.min.js',
+  // })
+  // let getCode = intl.selectedCountryData['name'] + ' +' + intl.selectedCountryData['dialCode']
+
+  $('#defaultCountryData').val('');
 }
 
 listenKeyup('#defaultCountryData', function () {

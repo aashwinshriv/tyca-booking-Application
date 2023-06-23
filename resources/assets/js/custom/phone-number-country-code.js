@@ -1,7 +1,7 @@
-document.addEventListener('turbo:load', loadPhoneNumberCountryCodeData);
+//document.addEventListener('turbo:load', loadPhoneNumberCountryCodeData);
 
 function loadPhoneNumberCountryCodeData() {
-    loadPhoneNumberCountryCode()
+    //loadPhoneNumberCountryCode()
     userCreateForm()
     userEditForm()
     vcardEditForm()
@@ -26,20 +26,20 @@ function loadPhoneNumberCountryCode() {
         Lang.get('messages.invalid_number')]
 
     // initialise plugin
-    let intl = window.intlTelInput(input, {
-        initialCountry: defaultCountryCodeValue,
-        separateDialCode: true,
-        geoIpLookup: function (success, failure) {
-            $.get('https://ipinfo.io', function () {
-            }, 'jsonp').always(function (resp) {
-                var countryCode = (resp && resp.country)
-                    ? resp.country
-                    : ''
-                success(countryCode)
-            })
-        },
-        utilsScript: '../../public/assets/js/inttel/js/utils.min.js',
-    })
+    // let intl = window.intlTelInput(input, {
+    //     initialCountry: defaultCountryCodeValue,
+    //     separateDialCode: true,
+    //     geoIpLookup: function (success, failure) {
+    //         $.get('https://ipinfo.io', function () {
+    //         }, 'jsonp').always(function (resp) {
+    //             var countryCode = (resp && resp.country)
+    //                 ? resp.country
+    //                 : ''
+    //             success(countryCode)
+    //         })
+    //     },
+    //     utilsScript: '../../public/assets/js/inttel/js/utils.min.js',
+    // })
 
     let reset = function () {
         input.classList.remove('error')
@@ -92,13 +92,13 @@ function loadPhoneNumberCountryCode() {
     $('#phoneNumber').trigger('blur');
 
 }
-$(document).on('click', '.iti__country', function (){
-    let flagClass = $('.iti__selected-flag>.iti__flag').attr('class')
-    flagClass = flagClass.split(/\s+/)[1]
-    let dialCodeVal = $('.iti__selected-dial-code').text()
-    window.localStorage.setItem('flagClassLocal', flagClass)
-    window.localStorage.setItem('dialCodeValLocal', dialCodeVal)
-})
+// $(document).on('click', '.iti__country', function (){
+//     let flagClass = $('.iti__selected-flag>.iti__flag').attr('class')
+//     flagClass = flagClass.split(/\s+/)[1]
+//     let dialCodeVal = $('.iti__selected-dial-code').text()
+//     window.localStorage.setItem('flagClassLocal', flagClass)
+//     window.localStorage.setItem('dialCodeValLocal', dialCodeVal)
+// })
 
 function userCreateForm() {
     if (!$('#userCreateForm').length) {

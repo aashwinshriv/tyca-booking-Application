@@ -59,4 +59,27 @@ class SpecializationRepository extends BaseRepository
             throw new UnprocessableEntityHttpException($e->getMessage());
         }
     }
+
+    /**
+     * @param  array  $input
+     * @return bool
+     */
+    public function update($input, $specialization): bool
+    {
+        try {
+            DB::beginTransaction();
+            $input['status'] = (isset($input['status'])) ? 1 : 0;
+            $specialization->update($input);
+            if (isset($input['icon']) && ! empty('icon')) {
+                $specialization->clearMediaCollection(Specialization::ICON);
+                $specialization->media()->delete();
+                $specialization->addMedia($input['icon'])->toMediaCollection(Specialization::ICON, config('app.media_disc'));
+            }
+            DB::commit();
+            return true;
+        } catch (Exception $e) {
+            DB::rollBack();
+            throw new UnprocessableEntityHttpException($e->getMessage());
+        }
+    }
 }

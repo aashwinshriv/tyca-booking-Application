@@ -67,11 +67,12 @@ class SpecializationController extends AppBaseController
      * Show the form for editing the specified Specialization.
      *
      * @param  Specialization  $specialization
-     * @return JsonResponse
+     * @return Application|Factory|View
      */
-    public function edit(Specialization $specialization): JsonResponse
+    public function edit(Specialization $specialization)
     {
-        return $this->sendResponse($specialization, 'Specialization retrieved successfully.');
+        //return $this->sendResponse($specialization, 'Specialization retrieved successfully.');
+        return view('specializations.edit', compact('specialization'));
     }
 
     /**
@@ -81,11 +82,13 @@ class SpecializationController extends AppBaseController
      * @param  Specialization  $specialization
      * @return JsonResponse
      */
-    public function update(UpdateSpecializationRequest $request, Specialization $specialization): JsonResponse
+    public function update(UpdateSpecializationRequest $request, Specialization $specialization)
     {
-        $this->specializationRepository->update($request->all(), $specialization->id);
+        $this->specializationRepository->update($request->all(), $specialization);
 
-        return $this->sendSuccess(__('messages.flash.specialization_update'));
+        Flash::success(__('messages.flash.specialization_update'));
+
+        return redirect(route('specializations.index'));
     }
 
     /**

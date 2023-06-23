@@ -41,7 +41,7 @@ class SpecializationTable extends LivewireTableComponent
     public function columns(): array
     {
         return [
-            Column::make(__('messages.front_service.icon'), 'id')->view('services.components.icon'),
+            Column::make(__('messages.front_service.icon'), 'id')->view('specializations.components.icon'),
             Column::make(__('messages.common.name'), 'name')->view('specializations.components.name')
                     ->sortable()
                     ->searchable(),

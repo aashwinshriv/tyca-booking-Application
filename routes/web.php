@@ -4,6 +4,7 @@ use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\AuthorizePaymentController;
 use App\Http\Controllers\CityController;
+use App\Http\Controllers\HotdeskController;
 use App\Http\Controllers\ClinicScheduleController;
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\CurrencyController;
@@ -158,6 +159,9 @@ Route::middleware('auth', 'xss', 'checkUserStatus')->group(function () {
 });
 
 Route::get('/book-slot', [BookController::class, 'index'])->name('book-slot');
+
+Route::get('/hot-desk', [HotdeskController::class, 'index'])->name('hot-desk');
+
 
 Route::get('cancel-appointment/{patient_id}/{appointment_unique_id}', [AppointmentController::class, 'cancelAppointment'])->name('cancelAppointment');
 

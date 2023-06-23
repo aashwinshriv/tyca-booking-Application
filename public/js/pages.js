@@ -5990,80 +5990,93 @@ function loadPhoneNumberCountryCodeData() {
   userEditForm();
   vcardEditForm();
   createSetting();
-}
-
-function loadPhoneNumberCountryCode() {
-  if (!$('#phoneNumber').length) {
-    return false;
-  }
-
-  var input = document.querySelector('#phoneNumber'),
-      errorMsg = document.querySelector('#error-msg'),
-      validMsg = document.querySelector('#valid-msg');
-  var errorMap = [Lang.get('messages.invalid_number'), Lang.get('messages.invalid_country_number'), Lang.get('messages.too_short'), Lang.get('messages.too_long'), Lang.get('messages.invalid_number')]; // initialise plugin
-  // let intl = window.intlTelInput(input, {
-  //     initialCountry: defaultCountryCodeValue,
-  //     separateDialCode: true,
-  //     geoIpLookup: function (success, failure) {
-  //         $.get('https://ipinfo.io', function () {
-  //         }, 'jsonp').always(function (resp) {
-  //             var countryCode = (resp && resp.country)
-  //                 ? resp.country
-  //                 : ''
-  //             success(countryCode)
-  //         })
-  //     },
-  //     utilsScript: '../../public/assets/js/inttel/js/utils.min.js',
-  // })
-
-  var reset = function reset() {
-    input.classList.remove('error');
-    errorMsg.innerHTML = '';
-    errorMsg.classList.add('d-none');
-    validMsg.classList.add('d-none');
-  };
-
-  input.addEventListener('blur', function () {
-    reset();
-
-    if (input.value.trim()) {
-      if (intl.isValidNumber()) {
-        validMsg.classList.remove('d-none');
-      } else {
-        input.classList.add('error');
-        var errorCode = intl.getValidationError();
-        errorMsg.innerHTML = errorMap[errorCode];
-        errorMsg.classList.remove('d-none');
-      }
-    }
-  }); // on keyup / change flag: reset
-
-  input.addEventListener('change', reset);
-  input.addEventListener('keyup', reset);
-
-  if (typeof phoneNo != 'undefined' && phoneNo !== '') {
-    setTimeout(function () {
-      $('#phoneNumber').trigger('change');
-    }, 500);
-  }
-
-  $('#phoneNumber').on('blur keyup change countrychange', function () {
-    if (typeof phoneNo != 'undefined' && phoneNo !== '') {
-      intl.setNumber('+' + phoneNo);
-      phoneNo = '';
-    }
-
-    var getCode = intl.selectedCountryData['dialCode'];
-    $('#prefix_code').val(getCode);
-  });
-  var getCode = intl.selectedCountryData['dialCode'];
-  $('#prefix_code').val(getCode);
-  var getPhoneNumber = $('#phoneNumber').val();
-  var removeSpacePhoneNumber = getPhoneNumber.replace(/\s/g, '');
-  $('#phoneNumber').val(removeSpacePhoneNumber);
-  $('#phoneNumber').focus();
-  $('#phoneNumber').trigger('blur');
-} // $(document).on('click', '.iti__country', function (){
+} //
+// function loadPhoneNumberCountryCode() {
+//
+//     if (!$('#phoneNumber').length) {
+//         return false
+//     }
+//
+//     let input = document.querySelector('#phoneNumber'),
+//         errorMsg = document.querySelector('#error-msg'),
+//         validMsg = document.querySelector('#valid-msg')
+//
+//     let errorMap = [
+//         Lang.get('messages.invalid_number'),
+//         Lang.get('messages.invalid_country_number'),
+//         Lang.get('messages.too_short'),
+//         Lang.get('messages.too_long'),
+//         Lang.get('messages.invalid_number')]
+//
+//     // initialise plugin
+//     // let intl = window.intlTelInput(input, {
+//     //     initialCountry: defaultCountryCodeValue,
+//     //     separateDialCode: true,
+//     //     geoIpLookup: function (success, failure) {
+//     //         $.get('https://ipinfo.io', function () {
+//     //         }, 'jsonp').always(function (resp) {
+//     //             var countryCode = (resp && resp.country)
+//     //                 ? resp.country
+//     //                 : ''
+//     //             success(countryCode)
+//     //         })
+//     //     },
+//     //     utilsScript: '../../public/assets/js/inttel/js/utils.min.js',
+//     // })
+//
+//     let reset = function () {
+//         input.classList.remove('error')
+//         errorMsg.innerHTML = ''
+//         errorMsg.classList.add('d-none')
+//         validMsg.classList.add('d-none')
+//     }
+//
+//     input.addEventListener('blur', function () {
+//         reset()
+//         if (input.value.trim()) {
+//             if (intl.isValidNumber()) {
+//                 validMsg.classList.remove('d-none')
+//             } else {
+//                 input.classList.add('error')
+//                 var errorCode = intl.getValidationError()
+//                 errorMsg.innerHTML = errorMap[errorCode]
+//                 errorMsg.classList.remove('d-none')
+//             }
+//         }
+//     })
+//
+//     // on keyup / change flag: reset
+//     input.addEventListener('change', reset)
+//     input.addEventListener('keyup', reset)
+//
+//     if (typeof phoneNo != 'undefined' && phoneNo !== '') {
+//         setTimeout(function () {
+//             $('#phoneNumber').trigger('change')
+//         }, 500)
+//     }
+//
+//     $('#phoneNumber').on('blur keyup change countrychange', function () {
+//         if (typeof phoneNo != 'undefined' && phoneNo !== '') {
+//             intl.setNumber('+' + phoneNo)
+//             phoneNo = ''
+//         }
+//         let getCode = intl.selectedCountryData['dialCode']
+//         $('#prefix_code').val(getCode)
+//     })
+//
+//     let getCode = intl.selectedCountryData['dialCode']
+//     $('#prefix_code').val(getCode)
+//
+//     let getPhoneNumber = $('#phoneNumber').val()
+//     let removeSpacePhoneNumber = getPhoneNumber.replace(/\s/g, '')
+//     $('#phoneNumber').val(removeSpacePhoneNumber)
+//
+//     $('#phoneNumber').focus();
+//     $('#phoneNumber').trigger('blur');
+//
+// }
+//
+// $(document).on('click', '.iti__country', function (){
 //     let flagClass = $('.iti__selected-flag>.iti__flag').attr('class')
 //     flagClass = flagClass.split(/\s+/)[1]
 //     let dialCodeVal = $('.iti__selected-dial-code').text()
@@ -9961,6 +9974,19 @@ listenSubmit('#editSpecializationForm', function (e) {
 listenClick('.specialization-delete-btn', function (event) {
   var specializationRecordId = $(event.currentTarget).data('id');
   deleteItem(route('specializations.destroy', specializationRecordId), Lang.get('messages.specializations'));
+});
+listenClick('.specialization-statusbar', function (event) {
+  var recordId = $(event.currentTarget).data('id');
+  $.ajax({
+    type: 'PUT',
+    url: route('specialization.status'),
+    data: {
+      id: recordId
+    },
+    success: function success(result) {
+      displaySuccessMessage(result.message);
+    }
+  });
 });
 
 /***/ }),

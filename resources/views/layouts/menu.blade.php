@@ -83,6 +83,7 @@
     </a>
 </li>
 @endrole
+
 @role('patient')
 
 <li class="nav-item {{ Request::is('patients/dashboard*') ? 'active' : '' }}">
@@ -145,10 +146,10 @@
     <li class="nav-item {{ Request::is('admin/doctors*','doctors/doctor-sessions*','admin/doctor-sessions*') ? 'active' : '' }}">
         <a class="nav-link d-flex align-items-center py-4" aria-current="page"
            href="{{ route('doctors.index') }}">
-            <span class="aside-menu-icon pe-3"><i class="fa-solid fa-user-doctor"></i></span>
+            <span class="aside-menu-icon pe-3"><i class="fa-solid fa-shop"></i></span>
             <span class="aside-menu-title">{{ __('messages.doctors') }}</span>
             <span class="d-none">{{ __('messages.doctors') }}</span>
-            <span class="d-none">{{ __('messages.doctor_sessions') }}</span>
+<!--            <span class="d-none">{{ __('messages.doctor_sessions') }}</span>-->
         </a>
     </li>
 @endcan
@@ -182,17 +183,17 @@
         </a>
     </li>
 @endcan
-@if(!getLogInUser()->hasRole('doctor'))
-    @can('manage_patient_visits')
-        <li class="nav-item {{ Request::is('admin/visits*') ? 'active' : '' }}">
-            <a class="nav-link d-flex align-items-center py-4" aria-current="page"
-               href="{{ route('visits.index') }}">
-                <span class="aside-menu-icon pe-3"><i class="fas fa-procedures"></i></span>
-                <span class="aside-menu-title">{{ __('messages.visits') }}</span>
-            </a>
-        </li>
-    @endcan
-@endif
+<!--@if(!getLogInUser()->hasRole('doctor'))-->
+<!--    @can('manage_patient_visits')-->
+<!--        <li class="nav-item {{ Request::is('admin/visits*') ? 'active' : '' }}">-->
+<!--            <a class="nav-link d-flex align-items-center py-4" aria-current="page"-->
+<!--               href="{{ route('visits.index') }}">-->
+<!--                <span class="aside-menu-icon pe-3"><i class="fas fa-procedures"></i></span>-->
+<!--                <span class="aside-menu-title">{{ __('messages.visits') }}</span>-->
+<!--            </a>-->
+<!--        </li>-->
+<!--    @endcan-->
+<!--@endif-->
 @can('manage_services')
     <li class="nav-item {{ Request::is('admin/services*','admin/service-categories*') ? 'active' : '' }}">
         <a class="nav-link d-flex align-items-center py-4" aria-current="page"
@@ -204,30 +205,30 @@
         </a>
     </li>
 @endcan
-@can('manage_specialities')
-    <li class="nav-item {{ Request::is('admin/specializations*') ? 'active' : '' }}">
-        <a class="nav-link d-flex align-items-center py-4" aria-current="page"
-           href="{{ route('specializations.index') }}">
-            <span class="aside-menu-icon pe-3"><i class="fas fa-user-shield"></i></span>
-            <span class="aside-menu-title">{{ __('messages.specializations') }}</span>
-        </a>
-    </li>
-@endcan
+<!--@can('manage_specialities')-->
+<!--    <li class="nav-item {{ Request::is('admin/specializations*') ? 'active' : '' }}">-->
+<!--        <a class="nav-link d-flex align-items-center py-4" aria-current="page"-->
+<!--           href="{{ route('specializations.index') }}">-->
+<!--            <span class="aside-menu-icon pe-3"><i class="fas fa-user-shield"></i></span>-->
+<!--            <span class="aside-menu-title">{{ __('messages.specializations') }}</span>-->
+<!--        </a>-->
+<!--    </li>-->
+<!--@endcan-->
 @can('manage_front_cms')
-    <li class="nav-item {{ Request::is('admin/enquiries*') ? 'active' : '' }}">
-        <a class="nav-link d-flex align-items-center py-4" aria-current="page"
-           href="{{ route('enquiries.index') }}">
-            <span class="aside-menu-icon pe-3"><i class="fas fa-question-circle"></i></span>
-            <span class="aside-menu-title">{{ __('messages.enquiries') }}</span>
-        </a>
-    </li>
-    <li class="nav-item {{ Request::is('admin/subscribers*') ? 'active' : '' }}">
-        <a class="nav-link d-flex align-items-center py-4" aria-current="page"
-           href="{{ route('subscribers.index') }}">
-            <span class="aside-menu-icon pe-3"><i class="fab fa-stripe-s"></i></span>
-            <span class="aside-menu-title">{{ __('messages.subscribers') }}</span>
-        </a>
-    </li>
+<!--    <li class="nav-item {{ Request::is('admin/enquiries*') ? 'active' : '' }}">-->
+<!--        <a class="nav-link d-flex align-items-center py-4" aria-current="page"-->
+<!--           href="{{ route('enquiries.index') }}">-->
+<!--            <span class="aside-menu-icon pe-3"><i class="fas fa-question-circle"></i></span>-->
+<!--            <span class="aside-menu-title">{{ __('messages.enquiries') }}</span>-->
+<!--        </a>-->
+<!--    </li>-->
+<!--    <li class="nav-item {{ Request::is('admin/subscribers*') ? 'active' : '' }}">-->
+<!--        <a class="nav-link d-flex align-items-center py-4" aria-current="page"-->
+<!--           href="{{ route('subscribers.index') }}">-->
+<!--            <span class="aside-menu-icon pe-3"><i class="fab fa-stripe-s"></i></span>-->
+<!--            <span class="aside-menu-title">{{ __('messages.subscribers') }}</span>-->
+<!--        </a>-->
+<!--    </li>-->
     <li class="nav-item {{ Request::is('admin/cms*','admin/sliders*','admin/faqs*','admin/front-medical-services*','admin/front-patient-testimonials*') ? 'active' : '' }}">
         <a class="nav-link d-flex align-items-center py-4" aria-current="page"
            href="{{ route('cms.index') }}">

@@ -147,21 +147,54 @@
                 <div class="card-body">
                     <div class="row mb-6">
                         <div class="table-responsive px-0">
-                            <table>
-                                <tbody class="d-flex flex-wrap">
+                            <table class="table table-borderless">
+                                <tbody >
                                 @foreach($paymentGateways as $key => $paymentGateway)
-                                    <tr class="w-100 d-flex justify-content-between">
-                                        <td class="p-2">
+                                    <tr class="w-100 d-flex justify-content-between mt-2">
+                                        <td class="p-2 pb-0 pt-0">
                                             <div class="form-check form-check-custom">
                                                 <input class="form-check-input" type="checkbox" value="{{$key}}"
                                                        name="payment_gateway[]"
                                                        id="{{$key}}" {{in_array($paymentGateway, $selectedPaymentGateways) ?'checked':''}} />
-                                                <label class="form-label" for="{{$key}}">
-                                                    {{$paymentGateway}}
-                                                </label>
+                                                    <label class="form-label" for="{{$key}}">
+                                                        {{$paymentGateway}}
+                                                    </label>
                                             </div>
                                         </td>
                                     </tr>
+                                    @if($key != 1)
+                                    <tr class="justify-content-between">
+                                        <td class="p-2">
+                                            <label>{{ Form::label('currency',__('messages.setting.payment_gateway_live_id').':',['class'=>' form-label']) }}</label>
+                                            <div class="col-lg-11">
+                                                {{
+                                                    Form::text(
+                                                    'payment_gateway_'.$key.'_client_id',
+                                                    isset($paymentGateWayKeys[$paymentGateway]['client_id'])?$paymentGateWayKeys[$paymentGateway]['client_id']:'',
+                                                    [
+                                                        'class' => 'form-control',
+                                                        'placeholder'=>__('messages.setting.payment_gateway_live_id'),
+                                                        'required'
+                                                    ])
+                                                }}
+                                            </div>
+                                        </td>
+                                        <td class="p-2">
+                                            <label>{{ Form::label('currency',__('messages.setting.payment_gateway_secret_key').':',['class'=>'form-label']) }}</label>
+                                            <div class="col-lg-11">
+                                                {{
+                                                    Form::text('payment_gateway_'.$key.'_secret_key',
+                                                    isset($paymentGateWayKeys[$paymentGateway]['client_secret'])?$paymentGateWayKeys[$paymentGateway]['client_secret']:'',
+                                                    [
+                                                        'class' => 'form-control',
+                                                        'placeholder'=>__('messages.setting.payment_gateway_secret_key'),
+                                                        'required'
+                                                    ])
+                                                }}
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    @endif
                                 @endforeach
                                 </tbody>
                             </table>

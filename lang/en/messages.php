@@ -289,7 +289,7 @@ return [
         'contact_information' => 'Contact Information',
         'currency_settings' => 'Currency Settings',
         'general_details' => 'General Details',
-        'clinic_name' => 'Clinic Name',
+        'clinic_name' => 'Name',
         'specialities' => 'Specialities',
         'currency' => 'Currency',
         'prefix' => 'Prefix',
@@ -309,6 +309,9 @@ return [
         'when_checkbox_disable' => 'When checkbox is disable email verification is not working for new users.',
         'change_app_logo' => 'Change app logo',
         'change_favicon' => 'Change favicon',
+        'payment_gateway_live_id' => 'Client Live ID',
+        'payment_gateway_secret_key' => 'Secret Key',
+
     ],
 
     'patient' => [

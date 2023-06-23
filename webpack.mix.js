@@ -141,8 +141,8 @@ mix.scripts([
     'public/assets/front/vendor/slick.min.js',
     'public/assets/front/js/contact.js',
     'public/assets/js/custom/helper.js',
-    'node_modules/intl-tel-input/build/js/utils.js',
-    'node_modules/intl-tel-input/build/js/intlTelInput.js',
+    // 'node_modules/intl-tel-input/build/js/utils.js',
+    // 'node_modules/intl-tel-input/build/js/intlTelInput.js',
     'node_modules/apexcharts/dist/apexcharts.js',
     'node_modules/quill/dist/quill.js',
 ], 'public/js/front-third-party.js')

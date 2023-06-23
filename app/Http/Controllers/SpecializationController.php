@@ -32,6 +32,17 @@ class SpecializationController extends AppBaseController
     }
 
     /**
+     * Show the form for creating a new Services.
+     *
+     * @return Application|Factory|View
+     */
+    public function create()
+    {
+
+        return view('specializations.create');
+    }
+
+    /**
      * Store a newly created Specialization in storage.
      *
      * @param  CreateSpecializationRequest  $request

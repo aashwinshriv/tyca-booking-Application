@@ -247,6 +247,7 @@ Route::prefix('admin')->middleware('auth', 'xss', 'checkUserStatus', 'checkImper
     // Specialization routes
     Route::middleware('permission:manage_specialities')->group(function () {
         Route::resource('specializations', SpecializationController::class);
+        Route::put('specializations-status', [SpecializationController::class, 'changeServiceStatus'])->name('specializations.status');
     });
 
     // Services and Service Category route
@@ -313,7 +314,7 @@ Route::prefix('admin')->middleware('auth', 'xss', 'checkUserStatus', 'checkImper
 
     // Resend Email Verification Mail
     Route::post('/email/verification-notification/{userId}', [UserController::class, 'resendEmailVerification'])->name('resend.email.verification');
-    
+
 });
 
 require __DIR__.'/auth.php';

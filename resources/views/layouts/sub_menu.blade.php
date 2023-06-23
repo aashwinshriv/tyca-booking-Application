@@ -129,10 +129,10 @@
         <a class="nav-link p-0 {{ Request::is('admin/services*') ? 'active' : '' }}"
            href="{{ route('services.index') }}">{{ __('messages.services') }}</a>
     </li>
-    <li class="nav-item position-relative mx-xl-3 mb-3 mb-xl-0 {{ !Request::is('admin/services*','admin/service-categories*') ? 'd-none' : '' }}">
-        <a class="nav-link p-0 {{ Request::is('admin/service-categories*') ? 'active' : '' }}"
-           href="{{ route('service-categories.index') }}">{{ __('messages.service_categories') }}</a>
-    </li>
+<!--    <li class="nav-item position-relative mx-xl-3 mb-3 mb-xl-0 {{ !Request::is('admin/services*','admin/service-categories*') ? 'd-none' : '' }}">-->
+<!--        <a class="nav-link p-0 {{ Request::is('admin/service-categories*') ? 'active' : '' }}"-->
+<!--           href="{{ route('service-categories.index') }}">{{ __('messages.service_categories') }}</a>-->
+<!--    </li>-->
 @endcan
 @can('manage_appointments')
     <li class="nav-item position-relative mx-xl-3 mb-3 mb-xl-0 {{ !Request::is('admin/appointments*','admin/admin-appointments-calendar*') ? 'd-none' : '' }}">

@@ -13,6 +13,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Redirector;
 use Laracasts\Flash\Flash;
+use Illuminate\Http\Request;
 
 class SpecializationController extends AppBaseController
 {
@@ -105,5 +106,17 @@ class SpecializationController extends AppBaseController
         $specialization->delete();
 
         return $this->sendSuccess(__('messages.flash.specialization_delete'));
+    }
+
+    /**
+     * @param  Request  $request
+     * @return mixed
+     */
+    public function changeServiceStatus(Request $request)
+    {
+        $status = Specialization::findOrFail($request->id);
+        $status->update(['status' => ! $status->status]);
+
+        return $this->sendResponse($status, __('messages.flash.status_update'));
     }
 }

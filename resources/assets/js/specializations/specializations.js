@@ -79,7 +79,7 @@ listenClick('.specialization-statusbar', function (event) {
 
     $.ajax({
         type: 'PUT',
-        url: route('specialization.status'),
+        url: route('specializations.status'),
         data: { id: recordId },
         success: function (result) {
             displaySuccessMessage(result.message)

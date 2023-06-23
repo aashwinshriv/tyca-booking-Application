@@ -9979,7 +9979,7 @@ listenClick('.specialization-statusbar', function (event) {
   var recordId = $(event.currentTarget).data('id');
   $.ajax({
     type: 'PUT',
-    url: route('specialization.status'),
+    url: route('specializations.status'),
     data: {
       id: recordId
     },

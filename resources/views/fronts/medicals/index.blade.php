@@ -1,5 +1,171 @@
 @extends('fronts.layouts.app')
 @section('front-title')
+{{ __('messages.web.medical') }}
+@endsection
+
+
+@section('front-content')
+
+<div class="transition-none">
+      <section class="title-hero-bg parallax-effect">
+      
+     <img src="assets/images/Frame_3.png" alt="" class="">
+               
+        <div class="container">
+            <div class="page-title text-center white-color">
+                <h1>BOOK A SPACE</h1>
+                <h4 class="workspace">Interested in our workspace? 
+                   <br> Book a slot for our space now!</h4>
+            </div>
+        </div>
+      </section>
+  </div>
+
+
+  <section class="white-bg">
+    <div class="container">
+        <h2 class="outlet-center">OUTLETS</h2>
+    	<div class="row">
+        	<div class="col-sm-8 section-heading">
+            <img src="assets/images/Frame 114.png" alt="" class="">
+        	</div>
+        </div>
+        <div class="row mt-50">
+            <div class="col-lg-8 col-md-8 col-sm-10 col-xs-12 centerize-col text-center">
+                <div class="again-flex">
+                <h5 class="again-heading">Thank You Come <br>
+              Again @ Balestier</h5>
+              <div class="from-flex">
+              <p class="again-p">From</p> 
+              <h5 style=" font-weight: 600;
+    color: #000000;">$35/day</h5>
+              <p class="again-hour">$4/hour</p>
+              </div>
+               
+                </div>
+              
+               </div>
+
+               <div class="onloads-button">
+               <button class="onloads-btn">Book Now</button>
+               </div>
+        </div>
+    </div>
+  </section>
+
+
+@endsection
+
+
+
+
+
+
+ <style>
+    .page-title {
+    position: absolute;
+    top: 60%;
+    width: 100%;
+    text-align: center;
+    left: 0;
+    -webkit-transform: translate(0%, -50%);
+    -moz-transform: translate(0%, -50%);
+    -ms-transform: translate(0%, -50%);
+    -o-transform: translate(0%, -50%);
+    transform: translate(0%, -50%);
+}
+.white-color {
+    color: #fff;
+}
+.page-title h1 {
+    font-size: 60px;
+    line-height: 1.5em;
+    font-weight: 700;
+    margin: 0;
+}
+.workspace  {
+    line-height: 40px;
+    font-size: 35px;
+    font-weight: 300;
+    margin-top: 20px;
+}
+section.title-hero-bg.parallax-effect img {
+    width: 100%;
+}
+
+.white-bg {
+    padding-top: 60px;
+    background: #f5f5f5;
+    overflow: hidden;
+}
+.section-heading {
+    text-align: center;
+    margin: auto;
+    float: none;
+    padding-bottom: 20px;
+}
+.centerize-col {
+    text-align: center;
+}
+
+.outlet-center{
+    text-align:center;
+    font-size: 40px;
+    margin-bottom: 20px;
+    font-weight: 700;
+    color: #000000;
+}
+.again-flex {
+    display: flex;
+    /* justify-conitent: space-around; */
+    font-size: 30px;
+    justify-content: end;
+}
+
+.again-heading{
+    margin-right: 115px;
+    margin-top: 0px;
+    font-weight: 600;
+    color: #000000;
+}
+.again-p{
+    font-size: 16px;
+    margin-bottom: -10px;
+    margin-top: -15px;
+    color: #000000;
+}
+
+.again-hour{
+    font-size: 12px;
+    margin-bottom: -15px;
+    margin-top: -18px;
+    color: #000000;
+}
+.from-flex {
+    line-height: 50px;
+    /* margin-top: 20px; */
+}
+.onloads-button {
+    text-align: center;
+    padding-top: 60px;
+    margin-bottom: 30px;
+}
+.onloads-btn {
+    padding: 10px;
+    width: 230px;
+    height: 50px;
+    font-size: 20px;
+    background: #273432;
+    border: #273432;
+    color: #FFFFFF;
+}
+    </style>
+ 
+
+<!-- Old code -->
+
+{{--@extends('fronts.layouts.app')
+@section('front-title')
     {{ __('messages.web.medical') }}
 @endsection
 @section('front-content')
@@ -7,7 +173,6 @@
         $styleCss = 'style';
     @endphp
     <div class="home-page">
-    <!-- start hero section -->
     <section class="hero-section p-t-100 p-b-100">
         <div class="container p-t-100">
             <div class="row align-items-center flex-column-reverse flex-lg-row">
@@ -29,9 +194,6 @@
             </div>
         </div>
     </section>
-    <!-- end hero section -->
-
-    <!-- start about section -->
     <section class="about-section p-b-100">
         <div class="container">
             <div class="row align-items-center flex-column-reverse flex-xl-row">
@@ -83,9 +245,6 @@
             </div>
         </div>
     </section>
-        <!-- end about section -->
-
-        <!-- start how-it-work section -->
         <section class="how-work-section p-t-100 p-b-100">
             <div class="container">
             <div class="text-center mb-lg-5 mb-4">
@@ -141,9 +300,6 @@
             </div>
         </div>
     </section>
-    <!-- end how-it-work section -->
-
-    <!-- start appointment section -->
     <section class="appointmnet-section p-t-100 p-b-100">
         <div class="container">
             <div class="bg-primary border-bmr-100 appointmnet-section__inner-block">
@@ -200,9 +356,6 @@
             </div>
         </div>
     </section>
-    <!-- end appointment section -->
-
-    <!-- start services section -->
     <section class="services-section overflow-hidden p-b-100">
         <div class="container">
             <div class="row align-items-center">
@@ -252,10 +405,6 @@
             </div>
         </div>
     </section>
-        <!-- end services section -->
-
-        <!-- start testimonial section -->
     @include('fronts.patient_testimonial')
-    <!-- end testimonial section -->
     </div>
-@endsection
+@endsection--}}

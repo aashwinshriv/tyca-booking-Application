@@ -14,10 +14,6 @@ header{
 .mb-4 {
     margin-bottom: 0.6rem!important;
 }
-.form-control, .form-select{
-    height: 40px;
-    padding: 0px 15px;
-}
 </style>
 
 <div>
@@ -43,25 +39,25 @@ header{
                 <form method="POST" action="{{ route('login') }}">  
                     @csrf
                     <div class="mb-sm-7 mb-4">
-                        <label for="email" class="form-label">
+                       {{--  <label for="email" class="form-label">
                             {{ __('messages.patient.email').':' }}<span class="required"></span>
-                        </label>
+                        </label>--}}
                         <input name="email" type="email" class="form-control" id="email" aria-describedby="emailHelp"
-                            required placeholder="Enter Email">
+                            required placeholder="Email">
                     </div>
 
                     <div class="mb-sm-7 mb-4">
                         <div class="d-flex justify-content-between">
-                            <label for="password" class="form-label">{{ __('messages.patient.password') .':' }}<span
-                                    class="required"></span></label>
+                           {{-- <label for="password" class="form-label">{{ __('messages.patient.password') .':' }}<span
+                                    class="required"></span></label>--}}
 
                         </div>
                         <input name="password" type="password" class="form-control" id="password" required
-                            placeholder="Enter Password">
+                            placeholder="Password">
                     </div>
                     <div class="d-flex justify-content-between" style="padding-bottom: 10px;">
                         @if (Route::has('password.request'))
-                        <a href="{{ route('password.request') }}" class="form-check-label" style="color: #000000b3;">
+                        <a href="{{ route('password.request') }}" class="form-check-label" style="color: #000000;">
                             {{ __('messages.common.forgot_your_password').'?' }}
                         </a>
                         @endif
@@ -71,13 +67,13 @@ header{
                         <label class="form-check-label"
                             for="remember_me">{{ __('messages.common.remember_me') }}</label>
                     </div>
-                    <div class="d-grid">
+                    <div class="d-grid col-6" style="margin: auto;">
                         <button type="submit" class="btn btn-primary">{{ __('messages.login') }}</button>
                     </div>
 
                     <div class="d-flex align-items-center mb-10 mt-4" style="justify-content: center;margin-bottom: 1.5rem;">
                         <span class="text-gray-700 me-2">New Customer?</span>
-                        <a href="{{ route('register') }}" class="link-info fs-6 text-decoration-none">
+                        <a href="{{ route('register') }}" class="form-check-label fs-7" style="color: #000000;">
                             {{__('messages.web.create_an_account')}}
                         </a>
                     </div>

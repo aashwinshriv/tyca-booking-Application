@@ -66,6 +66,23 @@ class UserRepository extends BaseRepository
         $specialization = $input['specializations'];
         try {
             DB::beginTransaction();
+
+            $days = array();
+            if (isset($input['days'])) {
+                foreach ($input['days'] as $day) {
+                    $days[] = array(
+                        'day_of_week' => $day,
+                        'start_time'  => $input['startTime'][$day],
+                        'end_time'    => $input['endTime'][$day],
+                    );
+                }
+            }
+            $doctorArr = array(
+                'experience' => $input['experience'],
+                'days' =>  json_encode($days),
+                'description' => $input['description'],
+            );
+
             $input['email'] = setEmailLowerCase($input['email']);
             $input['status'] = (isset($input['status'])) ? 1 : 0;
             $input['password'] = Hash::make($input['password']);
@@ -73,10 +90,16 @@ class UserRepository extends BaseRepository
             $doctor = User::create($input);
             $doctor->assignRole('doctor');
             $doctor->address()->create($addressInputArray);
-            $createDoctor = $doctor->doctor()->create($doctorArray);
+            $createDoctor = $doctor->doctor()->create($doctorArr);
             $createDoctor->specializations()->sync($specialization);
             if (isset($input['profile']) && ! empty('profile')) {
                 $doctor->addMedia($input['profile'])->toMediaCollection(User::PROFILE, config('app.media_disc'));
+            }
+
+            if (isset($input['gallery_image']) && ! empty('gallery_image')) {
+                foreach ($input['gallery_image'] as $file) {
+                    $doctor->addMedia($file)->toMediaCollection(User::GALLERY, config('app.media_disc'));
+                }
             }
 
             DB::commit();
@@ -101,6 +124,23 @@ class UserRepository extends BaseRepository
         $specialization = $input['specializations'];
         try {
             DB::beginTransaction();
+
+            $days = array();
+            if (isset($input['days'])) {
+                foreach ($input['days'] as $day) {
+                    $days[] = array(
+                        'day_of_week' => $day,
+                        'start_time'  => $input['startTime'][$day],
+                        'end_time'    => $input['endTime'][$day],
+                    );
+                }
+            }
+            $doctorArr = array(
+                'experience' => $input['experience'],
+                'days' =>  json_encode($days),
+                'description' => $input['description'],
+            );
+
             $input['email'] = setEmailLowerCase($input['email']);
             $input['status'] = (isset($input['status'])) ? 1 : 0;
             $input['type'] = User::DOCTOR;
@@ -132,6 +172,16 @@ class UserRepository extends BaseRepository
                 $doctor->user->media()->delete();
                 $doctor->user->addMedia($input['profile'])->toMediaCollection(User::PROFILE, config('app.media_disc'));
             }
+
+            if (isset($input['gallery_image']) && ! empty('gallery_image')) {
+                $doctor->user->clearMediaCollection(User::GALLERY);
+                $doctor->user->media()->delete();
+                foreach ($input['gallery_image'] as $file) {
+                    $doctor->addMedia($file)->toMediaCollection(User::GALLERY, config('app.media_disc'));
+                }
+            }
+
+
             DB::commit();
 
             return $doctor;

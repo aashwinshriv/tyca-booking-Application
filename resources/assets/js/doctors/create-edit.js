@@ -149,8 +149,8 @@ listenClick('.delete-btn-qualification', function (event) {
         buttons: {
             confirm: Lang.get('messages.common.yes'),
             cancel: Lang.get('messages.common.no'),
-            
-        },  
+
+        },
         reverseButtons: true,
         icon: 'warning',
     }).then(function (result) {

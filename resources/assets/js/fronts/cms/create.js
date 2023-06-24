@@ -35,7 +35,7 @@ function loadFrontCMSData () {
         return
     }
 
-    let quill2 = new Quill('#cmsPrivacyPolicyId', {
+    let quill3 = new Quill('#cmsPrivacyPolicyId', {
         modules: {
             toolbar: [
                 [
@@ -49,11 +49,14 @@ function loadFrontCMSData () {
         placeholder: Lang.get('messages.cms.privacy_policy'),
         theme: 'snow', // or 'bubble'
     })
-    quill2.on('text-change', function (delta, oldDelta, source) {
+    quill3.on('text-change', function (delta, oldDelta, source) {
         if (quill2.getText().trim().length === 0) {
             quill2.setContents([{ insert: '' }])
         }
     })
+
+
+
 
     let element = document.createElement('textarea')
     element.innerHTML = $('#cmsTermConditionData').val();

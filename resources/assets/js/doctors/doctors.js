@@ -1,7 +1,7 @@
 listenClick('#doctorResetFilter', function () {
   let  firstDate = moment(moment().startOf('week'), "MM/DD/YYYY").day(0).format("MM/DD/YYYY");
   let  lastDate =  moment(moment().endOf('week'), "MM/DD/YYYY").day(6).format("MM/DD/YYYY");
-    
+
     $('#doctorPanelAppointmentDate').val(firstDate + " - " + lastDate).trigger('change')
     $('#doctorPanelPaymentType').val(0).trigger('change')
     $('#doctorPanelAppointmentStatus').val(3).trigger('change')
@@ -110,3 +110,4 @@ listenChange('.doctor-email-verified', function (e) {
         },
     })
 })
+

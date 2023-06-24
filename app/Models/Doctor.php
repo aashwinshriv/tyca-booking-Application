@@ -59,6 +59,8 @@ class Doctor extends Model
         'twitter_url',
         'linkedin_url',
         'instagram_url',
+        'days',
+        'description',
     ];
 
     protected $casts = [

@@ -225,6 +225,7 @@ return [
         'select_service' => 'Select Service',
         'select_category' => 'Select category',
         'select_doctor' => 'Select Outlet',
+        'select_specializations' => 'Select Amenities',
         'search' => 'Search',
         'twitter_url' => 'Twitter URL',
         'linkedin_url' => 'Linkedin URL',
@@ -255,6 +256,11 @@ return [
         'note_we_are_taking_the_timezone_of_your_doctors_while_creating_appointment_in_calendar' => 'Note: We are taking the timezone of your Outlets while creating appointment in calendar. If Doctor have not set the timezone then it will take default UTC timezone.',
         'note_you_must_need_to_set_your_timezone_before_integrating_google_calendar' => 'Note: You must need to set your timezone
                                 before integrating Google Calendar',
+        'daily' => 'Daily',
+        'hourly' => 'Hourly',
+        'base_rate' => 'Base Rate',
+        'per_hour' => 'per hour',
+        'per_daily' => 'per dour',
     ],
 
     'user' => [
@@ -462,8 +468,10 @@ return [
         'edit_service' => 'Edit Service',
         'category' => 'Category',
         'charges' => 'Charges',
+        'amount' => 'Amount',
         'status' => 'Status',
         'short_description' => 'Short Description',
+        'description' => 'Description',
     ],
 
     'role' => [
@@ -606,6 +614,7 @@ return [
         'title' => 'Title',
         'short_description' => 'Short Description',
         'icon' => 'Icon',
+        'photos' => 'Photos',
     ],
 
     'faq' => [

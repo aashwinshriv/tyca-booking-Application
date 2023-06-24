@@ -17,6 +17,8 @@ return new class extends Migration
             $table->longText('short_description')->change();
 
             $table->double('charges_daily')->nullable()->after('charges');
+            $table->double('charges')->nullable()->change();
+            $table->unsignedBigInteger('category_id')->nullable()->change();
         });
     }
 

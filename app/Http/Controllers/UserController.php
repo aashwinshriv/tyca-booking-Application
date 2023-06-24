@@ -92,6 +92,7 @@ class UserController extends AppBaseController
     public function store(CreateUserRequest $request)
     {
         $input = $request->all();
+
         $this->userRepo->store($input);
 
         Flash::success(__('messages.flash.doctor_create'));

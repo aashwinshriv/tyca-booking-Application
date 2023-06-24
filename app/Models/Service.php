@@ -58,6 +58,7 @@ class Service extends Model implements HasMedia
         'category_id',
         'name',
         'charges',
+        'charges_daily',
         'status',
         'short_description',
     ];
@@ -98,7 +99,7 @@ class Service extends Model implements HasMedia
      */
     public static $rules = [
         'name' => 'required|unique:services,name',
-        'category_id' => 'required',
+        //'category_id' => 'required',
         'charges' => 'required|min:0|not_in:0',
         'doctors' => 'required',
         'short_description' => 'required|max:60',
@@ -119,6 +120,14 @@ class Service extends Model implements HasMedia
     public function serviceCategory(): BelongsTo
     {
         return $this->belongsTo(ServiceCategory::class, 'category_id','id');
+    }
+
+    /**
+     * @return BelongsToMany
+     */
+    public function serviceSpecializations(): BelongsToMany
+    {
+        return $this->belongsToMany(Specialization::class, 'service_specialization', 'service_id', 'specialization_id');
     }
 
     /**

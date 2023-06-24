@@ -6,6 +6,7 @@ use App\Http\Controllers\AppBaseController;
 use App\Models\Doctor;
 use App\Models\Service;
 use App\Models\ServiceCategory;
+use App\Models\Specialization;
 use DB;
 use Exception;
 use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
@@ -61,6 +62,9 @@ class ServicesRepository extends AppBaseController
             if (isset($input['doctors']) && ! empty($input['doctors'])) {
                 $services->serviceDoctors()->sync($input['doctors']);
             }
+            if (isset($input['specializations']) && ! empty($input['specializations'])) {
+                $services->serviceSpecializations()->sync($input['specializations']);
+            }
             if (isset($input['icon']) && ! empty('icon')) {
                 $services->addMedia($input['icon'])->toMediaCollection(Service::ICON, config('app.media_disc'));
             }
@@ -86,6 +90,7 @@ class ServicesRepository extends AppBaseController
             $input['status'] = (isset($input['status'])) ? 1 : 0;
             $service->update($input);
             $service->serviceDoctors()->sync($input['doctors']);
+            $service->serviceSpecializations()->sync($input['specializations']);
 
             if (isset($input['icon']) && ! empty('icon')) {
                 $service->clearMediaCollection(Service::ICON);
@@ -107,7 +112,7 @@ class ServicesRepository extends AppBaseController
      */
     public function prepareData()
     {
-        $data['serviceCategories'] = ServiceCategory::orderBy('name', 'ASC')->pluck('name', 'id');
+        $data['specializations'] = Specialization::orderBy('name', 'ASC')->pluck('name', 'id');
         $data['doctors'] = Doctor::with('user')->get()->where('user.status', true)->pluck('user.full_name', 'id');
 
         return $data;

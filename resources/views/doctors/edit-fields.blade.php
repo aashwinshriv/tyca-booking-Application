@@ -1,8 +1,22 @@
 <div class="row">
-    <div class="col-md-6 mb-5">
+    <div class="col-md-12 mb-5">
         {{ Form::label('First Name',__('messages.doctor.first_name').':' ,['class' => 'form-label required']) }}
         {{ Form::text('first_name', $user->first_name,['class' => 'form-control','placeholder' => __('messages.doctor.first_name'),'required']) }}
     </div>
+
+
+    <div class="col-lg-12">
+    <div class="mb-5">
+        {{ Form::label('description', __('messages.doctor.description').':', ['class' => 'form-label']) }}
+        <div id="doctorDescriptionId" class="editor-height" style="height: 200px"> <?php
+
+use Illuminate\Support\Arr;
+
+ echo $doctor->description; ?></div>
+        {{ Form::hidden('description', $doctor->description, ['id' => 'descriptionData']) }}
+    </div>
+</div>
+
     <div class="col-md-6 mb-5">
         {{ Form::label('Last Name',__('messages.doctor.last_name').':' ,['class' => 'form-label required']) }}
         {{ Form::text('last_name', $user->last_name,['class' => 'form-control','placeholder' => __('messages.doctor.last_name'),'required']) }}
@@ -44,22 +58,240 @@
                 </div>
             </span>
     </div>
-    <div class="col-md-6 mb-5">
-        <label class="form-label">{{ __('messages.patient.blood_group').':' }}</label>
-        {{ Form::select('blood_group', $bloodGroup , $user->blood_group, ['class' => 'io-select2 form-select', 'data-control'=>"select2",'placeholder' => __('messages.doctor.select_blood_group')]) }}
+    <div class="col-md-7">
+    <div class="mb-5">
+    <div class="row">
+
+<?php $days = json_decode($doctor->days);
+
+$dayArray = array();
+foreach($days as $day)
+{
+    $dayArray[$day->day_of_week] = array(
+        'day_of_week' => $day->day_of_week,
+        'start_time' => $day->start_time,
+        'end_time' => $day->end_time
+    );
+}
+
+// echo '<pre>'; print_r();
+// echo '<pre>'; print_r($dayArray[4]['start_time']);
+// echo '<pre>'; print_r($dayArray[4]['end_time']);
+
+
+// die;
+
+$slots = getSchedulesTimingSlot();
+
+?>
+
+    <div class="col-xxl-6 mb-7 d-sm-flex align-items-center mb-3">
+                <div class="col-xl-4 col-lg-4 col-md-2 col-4">
+                    <label class="form-check">
+                        <input class="form-check-input feature mx-2" <?php if(isset($dayArray[1]['day_of_week']) =='1'){ echo 'checked'; } ?> type="checkbox" value="1"
+                               name="days[]" />MONDAY
+                    </label>
+                </div>
+                <div class="col-xl-8 col-lg-3 col-3 d-flex align-items-center buisness_end">
+                    <div class="d-inline-block">
+                        <select class="form-control" data-control="select2" name="startTime[1]" tabindex="-1" aria-hidden="true">
+                        <option value="" data-select2-id="select2-data-6-zpds">Select Time</option>
+                        <?php foreach($slots as $slot){   ?>
+                        <option value="<?php echo $slot; ?>" <?php if($slot == isset($dayArray[1]['start_time'])) { echo 'selected'; } ?>><?php echo $slot; ?></option>
+                        <?php } ?>
+                    </select>
+                    </div>
+                    <span class="px-3">To</span>
+                    <div class="d-inline-block">
+                    <select class="form-control " data-control="select2" name="endTime[1]"  tabindex="-1" aria-hidden="true">
+                    <option value="" data-select2-id="select2-data-6-zpds">Select Time</option>
+                        <?php foreach($slots as $slot){   ?>
+                        <option value="<?php echo $slot; ?>" <?php if($slot == isset($dayArray[1]['end_time'])) { echo 'selected'; } ?>><?php echo $slot; ?></option>
+                        <?php } ?>
+                    </select>
+                    </div>
+                </div>
+            </div>
+
+        <div class="col-xxl-6 mb-7 d-sm-flex align-items-center mb-3">
+                <div class="col-xl-4 col-lg-4 col-md-2 col-4">
+                    <label class="form-check">
+                        <input class="form-check-input feature mx-2" type="checkbox" value="2" <?php if(isset($dayArray[2]['day_of_week']) =='2'){ echo 'checked'; } ?>
+                               name="days[]" />TUESDAY
+                    </label>
+                </div>
+                <div class="col-xl-8 col-lg-3 col-3 d-flex align-items-center buisness_end">
+                    <div class="d-inline-block">
+                        <select class="form-control " data-control="select2" name="startTime[2]" tabindex="-1" aria-hidden="true">
+                        <option value="" data-select2-id="select2-data-6-zpds">Select Time</option>
+                        <?php foreach($slots as $slot){   ?>
+                        <option value="<?php echo $slot; ?>" <?php if($slot == isset($dayArray[2]['start_time'])) { echo 'selected'; } ?>><?php echo $slot; ?></option>
+                        <?php } ?>
+                        </select>
+                        </div>
+                    <span class="px-3">To</span>
+                    <div class="d-inline-block">
+                    <select class="form-control " data-control="select2" name="endTime[2]"  tabindex="-1" aria-hidden="true">
+                    <option value="" data-select2-id="select2-data-6-zpds">Select Time</option>
+                        <?php foreach($slots as $slot){   ?>
+                        <option value="<?php echo $slot; ?>" <?php if($slot == isset($dayArray[2]['end_time'])) { echo 'selected'; } ?>><?php echo $slot; ?></option>
+                        <?php } ?>
+                    </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xxl-6 mb-7 d-sm-flex align-items-center mb-3">
+                <div class="col-xl-4 col-lg-4 col-md-2 col-4">
+                    <label class="form-check">
+                        <input class="form-check-input feature mx-2" type="checkbox" value="3" <?php if(isset($dayArray[3]['day_of_week']) =='3'){ echo 'checked'; } ?>
+                               name="days[]" />WEDNESDAY
+                    </label>
+                </div>
+                <div class="col-xl-8 col-lg-3 col-3 d-flex align-items-center buisness_end">
+                    <div class="d-inline-block">
+                        <select class="form-control " data-control="select2" name="startTime[3]" tabindex="-1" aria-hidden="true">
+                        <option value="" data-select2-id="select2-data-6-zpds">Select Time</option>
+                        <?php foreach($slots as $slot){   ?>
+                        <option value="<?php echo $slot; ?>" <?php if($slot == isset($dayArray[3]['start_time'])) { echo 'selected'; } ?>><?php echo $slot; ?></option>
+                        <?php } ?>
+                        </select>
+                    </div>
+                    <span class="px-3">To</span>
+                    <div class="d-inline-block">
+                    <select class="form-control " data-control="select2" name="endTime[3]"  tabindex="-1" aria-hidden="true">
+                    <option value="" data-select2-id="select2-data-6-zpds">Select Time</option>
+                        <?php foreach($slots as $slot){   ?>
+                        <option value="<?php echo $slot; ?>" <?php if($slot == isset($dayArray[3]['end_time'])) { echo 'selected'; } ?>><?php echo $slot; ?></option>
+                        <?php } ?>
+                    </select>
+
+                </div>
+                </div>
+            </div>
+            <div class="col-xxl-6 mb-7 d-sm-flex align-items-center mb-3">
+                <div class="col-xl-4 col-lg-4 col-md-2 col-4">
+                    <label class="form-check">
+                        <input class="form-check-input feature mx-2" type="checkbox" value="4" <?php if(isset($dayArray[4]['day_of_week']) =='4'){ echo 'checked'; } ?>
+                               name="days[]" />THURSDAY
+                    </label>
+                </div>
+                <div class="col-xl-8 col-lg-3 col-3 d-flex align-items-center buisness_end">
+                    <div class="d-inline-block">
+                        <select class="form-control " data-control="select2" name="startTime[4]" tabindex="-1" aria-hidden="true">
+                        <option value="" data-select2-id="select2-data-6-zpds">Select Time</option>
+                        <?php foreach($slots as $slot){   ?>
+                        <option value="<?php echo $slot; ?>" <?php if($slot == isset($dayArray[4]['start_time'])) { echo 'selected'; } ?>><?php echo $slot; ?></option>
+                        <?php } ?>
+                        </select>
+                    </div>
+                    <span class="px-3">To</span>
+                    <div class="d-inline-block">
+                    <select class="form-control " data-control="select2" name="endTime[4]"  tabindex="-1" aria-hidden="true">
+                    <option value="" data-select2-id="select2-data-6-zpds">Select Time</option>
+                        <?php foreach($slots as $slot){   ?>
+                        <option value="<?php echo $slot; ?>" <?php if($slot == isset($dayArray[4]['end_time'])) { echo 'selected'; } ?>><?php echo $slot; ?></option>
+                        <?php } ?>
+                    </select>
+
+                </div>
+                </div>
+            </div>
+
+            <div class="col-xxl-6 mb-7 d-sm-flex align-items-center mb-3">
+                <div class="col-xl-4 col-lg-4 col-md-2 col-4">
+                    <label class="form-check">
+                        <input class="form-check-input feature mx-2" type="checkbox" value="5" <?php if(isset($dayArray[5]['day_of_week']) =='5'){ echo 'checked'; } ?>
+                               name="days[]" />FRIDAY
+                    </label>
+                </div>
+                <div class="col-xl-8 col-lg-3 col-3 d-flex align-items-center buisness_end">
+                    <div class="d-inline-block">
+                        <select class="form-control " data-control="select2" name="startTime[5]" tabindex="-1" aria-hidden="true">
+                        <option value="" data-select2-id="select2-data-6-zpds">Select Time</option>
+                        <?php foreach($slots as $slot){   ?>
+                        <option value="<?php echo $slot; ?>" <?php if($slot == isset($dayArray[5]['start_time'])) { echo 'selected'; } ?>><?php echo $slot; ?></option>
+                        <?php } ?>
+                        </select>
+
+                    </div>
+                    <span class="px-3">To</span>
+                    <div class="d-inline-block">
+                    <select class="form-control " data-control="select2" name="endTime[5]"  tabindex="-1" aria-hidden="true">
+
+                    <option value="" data-select2-id="select2-data-6-zpds">Select Time</option>
+                        <?php foreach($slots as $slot){   ?>
+                        <option value="<?php echo $slot; ?>" <?php if($slot == isset($dayArray[5]['end_time'])) { echo 'selected'; } ?>><?php echo $slot; ?></option>
+                        <?php } ?>
+                    </select>                    </div>
+                </div>
+            </div>
+            <div class="col-xxl-6 mb-7 d-sm-flex align-items-center mb-3">
+                <div class="col-xl-4 col-lg-4 col-md-2 col-4">
+                    <label class="form-check">
+                        <input class="form-check-input feature mx-2" type="checkbox" value="6" <?php if(isset($dayArray[6]['day_of_week']) =='6'){ echo 'checked'; } ?>
+                               name="days[]" />SATURDAY
+                    </label>
+                </div>
+                <div class="col-xl-8 col-lg-3 col-3 d-flex align-items-center buisness_end">
+                    <div class="d-inline-block">
+                        <select class="form-control " data-control="select2" name="startTime[6]" tabindex="-1" aria-hidden="true">
+                        <option value="" data-select2-id="select2-data-6-zpds">Select Time</option>
+                        <?php foreach($slots as $slot){   ?>
+                        <option value="<?php echo $slot; ?>" <?php if($slot == isset($dayArray[6]['start_time'])) { echo 'selected'; } ?>><?php echo $slot; ?></option>
+                        <?php } ?>
+                        </select>
+                     </div>
+                    <span class="px-3">To</span>
+                    <div class="d-inline-block">
+                    <select class="form-control " data-control="select2" name="endTime[6]"  tabindex="-1" aria-hidden="true">
+                    <option value="" data-select2-id="select2-data-6-zpds">Select Time</option>
+                        <?php foreach($slots as $slot){   ?>
+                        <option value="<?php echo $slot; ?>" <?php if($slot == isset($dayArray[6]['end_time'])) { echo 'selected'; } ?>><?php echo $slot; ?></option>
+                        <?php } ?>
+                    </select>
+                </div>
+                </div>
+            </div>
+
+            <div class="col-xxl-6 mb-7 d-sm-flex align-items-center mb-3">
+                <div class="col-xl-4 col-lg-4 col-md-2 col-4">
+                    <label class="form-check">
+                        <input class="form-check-input feature mx-2" type="checkbox" value="7" <?php if(isset($dayArray[7]['day_of_week']) =='7'){ echo 'checked'; } ?>
+                               name="days[]" />SUNDAY
+                    </label>
+                </div>
+                <div class="col-xl-8 col-lg-3 col-3 d-flex align-items-center buisness_end">
+                    <div class="d-inline-block">
+                        <select class="form-control" data-control="select2" name="startTime[7]"  tabindex="-1" aria-hidden="true">
+                        <option value="" data-select2-id="select2-data-6-zpds">Select Time</option>
+                        <?php foreach($slots as $slot){   ?>
+                        <option value="<?php echo $slot; ?>" <?php if($slot == isset($dayArray[7]['start_time'])) { echo 'selected'; } ?>><?php echo $slot; ?></option>
+                        <?php } ?>
+                        </select>
+                    </div>
+                    <span class="px-3">To</span>
+                    <div class="d-inline-block">
+                    <select class="form-control " data-control="select2" name="endTime[7]"  tabindex="-1" aria-hidden="true">
+                    <option value="" data-select2-id="select2-data-6-zpds">Select Time</option>
+                        <?php foreach($slots as $slot){   ?>
+                        <option value="<?php echo $slot; ?>" <?php if($slot == isset($dayArray[7]['end_time'])) { echo 'selected'; } ?>><?php echo $slot; ?></option>
+                        <?php } ?>
+                    </select>
+
+                </div>
+                </div>
+            </div>
+
     </div>
-    <div class="col-md-6 mb-5">
-        {{ Form::label('twitter',__('messages.doctor.twitter').':' ,['class' => 'form-label']) }}
-        {{ Form::text('twitter_url', !empty($doctor->twitter_url) ? $doctor->twitter_url : null,['class' => 'form-control','placeholder' =>  __('messages.common.twitter_url'),'id' => 'twitterUrl']) }}
     </div>
-    <div class="col-md-6 mb-5">
-        {{ Form::label('linkedin',__('messages.doctor.linkedin').':' ,['class' => 'form-label']) }}
-        {{ Form::text('linkedin_url', !empty($doctor->linkedin_url) ? $doctor->linkedin_url : null,['class' => 'form-control','placeholder' =>  __('messages.common.linkedin_url'), 'id' => 'linkedinUrl']) }}
-    </div>
-    <div class="col-md-6 mb-5">
-        {{ Form::label('instagram',__('messages.doctor.instagram').':' ,['class' => 'form-label']) }}
-        {{ Form::text('instagram_url', !empty($doctor->instagram_url) ? $doctor->instagram_url : null,['class' => 'form-control','placeholder' =>  __('messages.common.instagram_url'), 'id' => 'instagramUrl']) }}
-    </div>
+</div>
+
+<?php
+
+//  echo '<pre>'; print_R($user->media);
+
+?>
     <div class="col-md-6 mb-5">
         <div class="mb-3" io-image-input="true">
             <label for="exampleInputImage" class="form-label">{{__('messages.doctor.profile')}}:</label>
@@ -69,16 +301,24 @@
                     </div>
                     <span class="picker-edit rounded-circle text-gray-500 fs-small" data-bs-toggle="tooltip"
                           data-placement="top" data-bs-original-title="{{__('messages.user.edit_profile')}}">
-                        <label> 
-                            <i class="fa-solid fa-pen" id="profileImageIcon"></i> 
-                            <input type="file" id="profilePicture" name="profile" class="image-upload d-none profile-validation" accept="image/*" /> 
-                        </label> 
+                        <label>
+                            <i class="fa-solid fa-pen" id="profileImageIcon"></i>
+                            <input type="file" id="profilePicture" name="profile" class="image-upload d-none profile-validation" accept="image/*" />
+                        </label>
                     </span>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<div class="col-md-6 mb-5">
+    <div class="item-upload">
+
+<input id="photo-upload" type="file" accept="image/*"  name="gallery_image[]" multiple/>
+<div id="photo-upload__preview" class="upload-preview" ></div>
+</div>
+
+    </div>
 <div class="col-md-6 mb-5">
     <label class="form-label">{{__('messages.doctor.status')}}:</label>
     <div class="col-lg-8">
@@ -116,70 +356,107 @@
         {{ Form::text('postal_code', isset($user->address->postal_code) ? $user->address->postal_code : '', ['class' => 'form-control', 'placeholder' => __('messages.doctor.postal_code')]) }}
     </div>
 </div>
-<div>
-    <div class="fw-bolder fs-3 rotate collapsible">{{ __('messages.doctor.qualification_information') }}
-    </div>
-    <a class="btn btn-primary float-end" id="addQualification">{{__('messages.doctor.add_qualification')}}</a>
-</div>
-<input type="hidden" name="deletedQualifications" value="" id="deletedQualifications">
-<div class="row showQualification w-100">
-    <div class="col-md-4 mb-5">
-        {{ Form::label('Degree', __('messages.doctor.degree').':', ['class' => 'form-label']) }}
-        {{ Form::text('degree', null, ['class' => 'form-control degree', 'placeholder' => __('messages.doctor.degree'), 'id'=>'degree']) }}
-    </div>
-    <div class="col-md-4 mb-5">
-        {{ Form::label('university', __('messages.doctor.university').':', ['class' => 'form-label']) }}
-        {{ Form::text('university', null, ['class' => 'form-control university', 'placeholder' => __('messages.doctor.university'), 'id'=>'university']) }}
-    </div>
-    <div class="col-md-4 mb-5">
-        <label class="form-label required">{{__('messages.doctor.year')}}:</label>
-        {{ Form::select('year', $years,!empty($qualifications->year) ? $qualifications->year : null, ['class' => 'io-select2 form-select year', 'data-control'=>"select2", 'id'=> 'year', 'placeholder' =>  __('messages.doctor.select_year')]) }}
-    </div>
-    <div class="mb-5 col-md-4">
-        <button type="button" class="btn btn-primary me-3"
-                id="saveQualification">{{__('messages.common.save')}}</button>
-        <button type="button" class="btn btn-secondary"
-                id="cancelQualification">{{__('messages.common.discard')}}</button>
-    </div>
-</div><br>
-<div class="table-responsive-sm w-100 mt-4">
-    <table class="table table-row-dashed table-row-gray-300 gy-7 align-middle" id="doctorQualificationTbl">
-        <thead>
-        <tr class="fw-bolder fs-6 text-gray-800">
-            <th>{{Str::upper(__('messages.doctor.sr_no'))}}</th>
-            <th>{{ Str::upper(__('messages.doctor.degree'))}}</th>
-            <th>{{ Str::upper(__('messages.doctor.collage_university'))}}</th>
-            <th>{{ Str::upper(__('messages.doctor.year'))}}</th>
-            <th class="text-center">{{ Str::upper(__('messages.common.action'))}}</th>
-        </tr>
-        </thead>
-        <tbody>
-        @foreach($qualifications as $index => $qualification)
-            <tr>
-                <td id="qualificationId" data-value="{{ $index+1 }}">{{$index+1}}</td>
-                <td id="degreeTd">{{$qualification->degree}}</td>
-                <td id="universityTd">{{$qualification->university}}</td>
-                <td id="yearTd">{{$qualification->year}}</td>
-                <td class="text-center whitespace-nowrap">
-                    <div class="d-flex justify-content-center">
-                        <a data-id="{{$index+1}}" data-primary-id="{{$qualification->id}}" title="{{ __('messages.common.edit') }}"
-                           class="btn edit-btn-qualification btn-icon px-1 fs-3 text-primary" data-bs-toggle="tooltip"
-                           data-bs-original-title="{{ __('messages.common.edit') }}">
-                            <i class="fa-solid fa-pen-to-square"></i>
-                        </a>
-                        <a data-id="{{$qualification->id}}" title="{{ __('messages.common.delete') }}" class="delete-btn-qualification btn btn-icon px-1 fs-3 text-danger"  data-bs-toggle="tooltip"
-                           data-bs-original-title="{{ __('messages.common.delete') }}">
-                            <i class="fa-solid fa-trash"></i>
-                        </a>
-                    </div>
-                </td>
-            </tr>
-        @endforeach
-        </tbody>
-    </table>
-</div>
+
+
 <div class="d-flex">
     <button type="submit" class="btn btn-primary">{{__('messages.common.save')}}</button>&nbsp;&nbsp;&nbsp;
-    <a href="{{route('doctors.index')}}" type="reset" id="ResetForm"
-       class="btn btn-secondary">{{__('messages.common.discard')}}</a>
+
 </div>
+
+<style>
+.item-photo__preview {
+  width: 100px;
+  height: 100px;
+}
+.item-images > div
+{
+    float: left;
+    margin-right: 30px;
+    margin-bottom: 15px;
+    margin-top: 15px;
+}
+.delete
+{
+    position: absolute;
+    background: transparent;
+    border: 1px solid;
+    border-radius: 100%
+}
+</style>
+<script type="text/javascript">
+
+let quill2 = new Quill('#doctorDescriptionId', {
+    modules: {
+        toolbar: [
+            [
+                {
+                    header: [1, 2, false],
+                }],
+            ['bold', 'italic', 'underline'],
+            ['image', 'code-block'],
+        ],
+    },
+    placeholder: 'Description',
+    theme: 'snow', // or 'bubble'
+})
+quill2.on('text-change', function (delta, oldDelta, source) {
+    if (quill2.getText().trim().length === 0) {
+        quill2.setContents([{ insert: '' }])
+    }
+})
+
+
+    function previewImage(e, selectedFiles, imagesArray) {
+  const elemContainer = document.createElement('div');
+  elemContainer.setAttribute('class', 'item-images');
+  for (let i = 0; i < selectedFiles.length; i++) {
+    imagesArray.push(selectedFiles[i]);
+    const imageContainer = document.createElement('div');
+    const elem = document.createElement('img');
+    elem.setAttribute('src', URL.createObjectURL(selectedFiles[i]));
+    elem.setAttribute('class', 'item-photo__preview')
+    const removeButton = document.createElement('button');
+    removeButton.setAttribute('type', 'button');
+    removeButton.classList.add('delete');
+    removeButton.dataset.filename = selectedFiles[i].name,
+    removeButton.innerHTML = '<span>&times;</span>'
+    imageContainer.appendChild(elem);
+    imageContainer.appendChild(removeButton);
+    elemContainer.appendChild(imageContainer);
+  }
+  return elemContainer;
+}
+let item_images = [];
+document.getElementById('photo-upload').addEventListener('change', (e) => {
+  let selectedFiles = e.target.files;
+  const photoPreviewContainer = document.querySelector('#photo-upload__preview');
+  const elemContainer = previewImage(e, selectedFiles, item_images);
+  photoPreviewContainer.appendChild(elemContainer);
+});
+
+document.getElementById('photo-upload__preview').addEventListener('click', (e) => {
+  const tgt = e.target.closest('button');
+  if (tgt.classList.contains('delete')) {
+    tgt.closest('div').remove();
+    const fileName = tgt.dataset.filename
+    item_images = item_images.filter(img => img.name != fileName)
+  }
+})
+
+$(document).ready(function(){
+
+$("#doctorDescriptionId").keyup(function(){
+    let element = document.createElement('textarea')
+    let editor_content_1 = quill2.root.innerHTML
+    element.innerHTML = editor_content_1
+
+    // if (quill1.getText().trim().length === 0) {
+    //     displayErrorMessage('The Terms & Conditions is required.')
+    //     return false
+    // }
+
+    $('#descriptionData').val(editor_content_1);
+});
+});
+
+</script>

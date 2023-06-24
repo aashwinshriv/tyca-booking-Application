@@ -145,6 +145,8 @@ class User extends Authenticatable implements HasMedia
 
     const PROFILE = 'profile';
 
+    const GALLERY = 'gallery';
+
     const ADMIN = 1;
 
     const DOCTOR = 2;
@@ -525,7 +527,7 @@ class User extends Authenticatable implements HasMedia
 
     protected $with = ['media', 'roles'];
 
-    protected $appends = ['full_name', 'profile_image', 'role_name', 'role_display_name'];
+    protected $appends = ['full_name','gallery', 'profile_image', 'role_name', 'role_display_name'];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -548,14 +550,14 @@ class User extends Authenticatable implements HasMedia
 
     public static $rules = [
         'first_name' => 'required',
-        'last_name' => 'required',
-        'email' => 'required|email|unique:users,email|regex:/(.*)@(.*)\.(.*)/',
-        'contact' => 'nullable|unique:users,contact',
-        'password' => 'required|same:password_confirmation|min:6',
-        'dob' => 'nullable|date',
-        'experience' => 'nullable|numeric',
+        // 'last_name' => 'required',
+        // 'email' => 'required|email|unique:users,email|regex:/(.*)@(.*)\.(.*)/',
+        // 'contact' => 'nullable|unique:users,contact',
+        // 'password' => 'required|same:password_confirmation|min:6',
+        // 'dob' => 'nullable|date',
+        // 'experience' => 'nullable|numeric',
         'specializations' => 'required',
-        'gender' => 'required',
+        // 'gender' => 'required',
         'status' => 'nullable',
         'postal_code' => 'nullable',
         'profile' => 'nullable|mimes:jpeg,png,jpg|max:2000',
@@ -601,6 +603,19 @@ class User extends Authenticatable implements HasMedia
         }
 
         return asset('web/media/avatars/male.png');
+    }
+
+    /**
+     * @return array
+     */
+    public function getGalleryAttribute(): array
+    {
+        /** @var Media $media */
+        $media = $this->getMedia(self::GALLERY)->all();
+        if (! empty($media)) {
+            return $media->getFullUrl();
+        }
+        return [];
     }
 
     public function getRoleNameAttribute()

@@ -23,7 +23,7 @@ class SpecializationTable extends LivewireTableComponent
         $this->setThAttributes(function (Column $column) {
             if ($column->isField('id')) {
                 return [
-                    'class' => 'text-center'
+                    'class' => 'text-center td-icon'
                 ];
             }
             if (in_array($column->getField(),['charges','status'],true)) {
